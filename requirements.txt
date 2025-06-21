@@ -3,3 +3,6 @@ numpy
 gpiozero
 evdev
 pigpio
+ultralytics
+torch
+torchvision

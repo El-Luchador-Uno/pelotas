@@ -2,6 +2,7 @@ from evdev import InputDevice, ecodes, list_devices
 from pin_management import servo_pin
 from constants import A_BUTTON_CODE, B_BUTTON_CODE, Y_BUTTON_CODE, INTAKE_SERVO, X_BUTTON_CODE
 from controller.handle_joystick_move import Direction, handle_move, get_degrees_of_direction
+from ball_finding.find_ball import find_ball
 
 def connect_controller():
     devices = [InputDevice(fn) for fn in list_devices()]
@@ -27,7 +28,8 @@ def connect_controller():
             if event.code == A_BUTTON_CODE and event.value == 1:
                 servo_pin.control_servo(INTAKE_SERVO, -1)
             elif event.code == B_BUTTON_CODE and event.value == 1:
-                servo_pin.control_servo(INTAKE_SERVO, 0)
+                find_ball()
+                # servo_pin.control_servo(INTAKE_SERVO, 0)
             elif event.code == X_BUTTON_CODE and event.value == 1:
                 servo_pin.control_servo(INTAKE_SERVO, 1)
             elif event.code == Y_BUTTON_CODE and event.value == 1:
