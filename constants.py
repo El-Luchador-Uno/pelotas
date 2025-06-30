@@ -1,3 +1,5 @@
+from enum import Enum
+
 A_BUTTON_CODE = 305
 B_BUTTON_CODE = 304
 Y_BUTTON_CODE = 308
@@ -14,3 +16,10 @@ SR2 = 25
 PWMR = 12
 
 INTAKE_SERVO = 2
+
+class Direction(Enum):
+    LEFT = 'left',
+    RIGHT = 'right',
+    UP = 'up',
+    DOWN = 'down'
+    STOP = 'stop'

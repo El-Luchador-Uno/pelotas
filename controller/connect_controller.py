@@ -1,7 +1,7 @@
 from evdev import InputDevice, ecodes, list_devices
 from pin_management import servo_pin
-from constants import A_BUTTON_CODE, B_BUTTON_CODE, Y_BUTTON_CODE, INTAKE_SERVO, X_BUTTON_CODE
-from controller.handle_joystick_move import Direction, handle_move, get_degrees_of_direction
+from constants import A_BUTTON_CODE, B_BUTTON_CODE, Y_BUTTON_CODE, INTAKE_SERVO, X_BUTTON_CODE, Direction
+from controller.handle_joystick_move import handle_move, get_degrees_of_direction
 from ball_finding.find_ball import find_ball
 
 def connect_controller():

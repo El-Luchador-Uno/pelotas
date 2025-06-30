@@ -1,14 +1,6 @@
 from math import atan2, degrees, sqrt
-from constants import JOYSTICK_EVENT_MAX, SL1, SL2, SR1, SR2, PWML, PWMR
-from enum import Enum
+from constants import JOYSTICK_EVENT_MAX, SL1, SL2, SR1, SR2, PWML, PWMR, Direction
 from pin_management import standard_pin
-
-class Direction(Enum):
-    LEFT = 'left',
-    RIGHT = 'right',
-    UP = 'up',
-    DOWN = 'down'
-    STOP = 'stop'
 
 def get_distance_from_center(x: int, y: int) -> float:
     return sqrt(x**2 + y**2)
