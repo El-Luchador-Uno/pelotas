@@ -23,26 +23,32 @@ def find_ball():
         ret, frame = cap.read()
         if not ret:
             break
-
-        # If needed we can resize the frame to ease the compute load, but the model performance is significantly worse
-        # frame = cv2.resize(frame, (frame.shape[1] // 2, frame.shape[0] // 2)) 
             
         results = model.predict(source=frame, imgsz=640, conf=0.5)
+
+        frame_width = frame.shape[1]
+        frame_center_x = frame_width / 2
+
+        ACCEPTABLE_PERCENT_FROM_CENTER = 0.05
+
+        acceptable_distance_from_center = ACCEPTABLE_PERCENT_FROM_CENTER * frame_center_x
 
         for r in results:
             boxes = r.boxes 
             for box in boxes:
-                x1, y1, x2, y2 = map(int, box.xyxy[0])
-                conf = float(box.conf[0])
-                print(f"Ball detected at ({x1}, {y1}) to ({x2}, {y2}) with confidence: {conf:.2f}")
+                x1, _, x2, _ = map(int, box.xyxy[0])
                 
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                cv2.putText(frame, f"Bouncy Ball: {conf:.2f}", (x1, y1 - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
+                ball_center_x = (x1 + x2) / 2
 
-                # TODO: need to programmtically find the bottom center of the frame
-                cv2.circle(frame, (960, 1070), 10, (255, 0, 0), 2) 
-        
+                ball_distance_from_center = ball_center_x - frame_center_x
+
+                if abs(ball_distance_from_center) < acceptable_distance_from_center:
+                    print(f"Ball is centered {ball_center_x}, {frame_center_x}")
+                elif ball_distance_from_center > 0:
+                    print(f"Ball is right of center {ball_distance_from_center}, {frame_center_x}")
+                elif ball_distance_from_center < 0:
+                    print(f"Ball is left of center {ball_distance_from_center}, {frame_center_x}")
+
         # Check for keyboard interrupt to exit
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
