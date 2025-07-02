@@ -3,7 +3,7 @@ from pin_management import standard_pin
 from time import sleep
 
 def drive(dir: Direction, duration_in_milliseconds: int):
-    ON_PWM_VALUE = 0.25 # Arbitrary but don't want to go to fast
+    ON_PWM_VALUE = 0.5 # Arbitrary but don't want to go to fast
     MILLISECONDS_PER_SECOND = 1000
 
     left_one: int
@@ -28,17 +28,17 @@ def drive(dir: Direction, duration_in_milliseconds: int):
         pwm_left = ON_PWM_VALUE
         pwm_right = ON_PWM_VALUE 
     elif dir == Direction.LEFT:
-        left_one = 1
-        left_two = 0
-        right_one = 0
-        right_two = 1
-        pwm_left = ON_PWM_VALUE
-        pwm_right = 0.0
-    elif dir == Direction.RIGHT:
         left_one = 0
         left_two = 1
         right_one = 1
         right_two = 0
+        pwm_left = ON_PWM_VALUE
+        pwm_right = 0.0
+    elif dir == Direction.RIGHT:
+        left_one = 1
+        left_two = 0
+        right_one = 0
+        right_two = 1
         pwm_left = 0.0
         pwm_right = ON_PWM_VALUE 
 

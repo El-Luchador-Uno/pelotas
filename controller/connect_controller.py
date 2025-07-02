@@ -47,13 +47,13 @@ def connect_controller():
                 DIRECTION = Direction.RIGHT
             # Down: 45° to 135°
             elif 45 <= angle < 135:
-                DIRECTION = Direction.UP
+                DIRECTION = Direction.DOWN
             # Right: 135° to 225°
             elif 135 <= angle < 225:
                 DIRECTION = Direction.LEFT
             # Up: 225° to 315°
             elif 225 <= angle < 315:
-                DIRECTION = Direction.DOWN
+                DIRECTION = Direction.UP
             else:
                 DIRECTION = Direction.STOP
 

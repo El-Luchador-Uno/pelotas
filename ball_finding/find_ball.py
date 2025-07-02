@@ -11,7 +11,7 @@ def find_ball():
     
     cap = cv2.VideoCapture(0)
 
-    desired_fps = 0.25 
+    desired_fps = 0.50 
     frame_interval = 1.0 / desired_fps 
     
     while True:
@@ -56,13 +56,13 @@ def find_ball():
 
             if abs(ball_distance_from_center) < acceptable_distance_from_center:
                 print(f"Ball is centered {ball_center_x}, {frame_center_x}")
-                drive(dir=Direction.UP, duration_in_milliseconds=500)
+                drive(dir=Direction.UP, duration_in_milliseconds=300)
             elif ball_distance_from_center > 0:
                 print(f"Ball is right of center {ball_distance_from_center}, {frame_center_x}")
-                drive(dir=Direction.RIGHT, duration_in_milliseconds=500)
+                drive(dir=Direction.RIGHT, duration_in_milliseconds=100)
             elif ball_distance_from_center < 0:
                 print(f"Ball is left of center {ball_distance_from_center}, {frame_center_x}")
-                drive(dir=Direction.LEFT, duration_in_milliseconds=500)
+                drive(dir=Direction.LEFT, duration_in_milliseconds=100)
 
         # Check for keyboard interrupt to exit
         if cv2.waitKey(1) & 0xFF == ord('q'):
