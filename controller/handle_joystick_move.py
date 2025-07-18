@@ -58,15 +58,15 @@ def handle_move(x: int, y: int, dir: Direction):
         right_one = 0
         right_two = 1
     elif dir == Direction.LEFT:
-        left_one = 1
-        left_two = 0
-        right_one = 0
-        right_two = 1
-    elif dir == Direction.RIGHT:
         left_one = 0
         left_two = 1
         right_one = 1
         right_two = 0
+    elif dir == Direction.RIGHT:
+        left_one = 1
+        left_two = 0
+        right_one = 0
+        right_two = 1
     elif dir == Direction.STOP:
         left_one = 0
         left_two = 0
