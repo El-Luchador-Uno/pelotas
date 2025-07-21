@@ -35,7 +35,7 @@ def find_ball():
         frame_center_x = frame_width / 2
 
         ACCEPTABLE_PERCENT_FROM_X_CENTER = 0.05
-        ACCEPTABLE_PERCENT_FROM_Y_CENTER = .30
+        ACCEPTABLE_PERCENT_FROM_Y_CENTER = .50
 
         acceptable_distance_from_center = ACCEPTABLE_PERCENT_FROM_X_CENTER * frame_center_x
         pickup_height = ACCEPTABLE_PERCENT_FROM_Y_CENTER * frame_height
@@ -67,20 +67,23 @@ def find_ball():
                 if ball_distance_from_y_bottom < pickup_height:
                     print(f"Ball is ready for pickup")
                     # Turn on intake
-                    servo_pin.control_servo(INTAKE_SERVO, 1)
+                    servo_pin.control_servo(INTAKE_SERVO, -0.75)
                     # Wait for intake to be on
-                    sleep(1)
+                    sleep(0.5)
                     # Slowly drive over ball
-                    drive(dir=Direction.UP, duration_in_milliseconds=600, pwm_speed=0.3)
+                    drive(dir=Direction.UP, duration_in_milliseconds=1500, pwm_speed=0.20)
+                    sleep(2)
+                    servo_pin.control_servo(INTAKE_SERVO, 0)
+                    break
                 else:
                     print(f"Ball is centered {ball_center_x}, {frame_center_x}")
                     drive(dir=Direction.UP, duration_in_milliseconds=300)
             elif ball_distance_from_x_center > 0:
                 print(f"Ball is right of center {ball_distance_from_x_center}, {frame_center_x}")
-                drive(dir=Direction.RIGHT, duration_in_milliseconds=50)
+                drive(dir=Direction.RIGHT, duration_in_milliseconds=50, pwm_speed=.50)
             elif ball_distance_from_x_center < 0:
                 print(f"Ball is left of center {ball_distance_from_x_center}, {frame_center_x}")
-                drive(dir=Direction.LEFT, duration_in_milliseconds=50)
+                drive(dir=Direction.LEFT, duration_in_milliseconds=50, pwm_speed=.50)
 
         # Check for keyboard interrupt to exit
         if cv2.waitKey(1) & 0xFF == ord('q'):

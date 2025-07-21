@@ -15,7 +15,7 @@ SR1 = 16
 SR2 = 25
 PWMR = 12
 
-INTAKE_SERVO = 2
+INTAKE_SERVO = 27
 
 class Direction(Enum):
     LEFT = 'left',

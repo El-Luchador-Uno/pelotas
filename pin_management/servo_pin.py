@@ -11,5 +11,4 @@ def control_servo(pin: int, value: float):
     if value == 0:
         servo.detach()
         return
-
     servo.value = value

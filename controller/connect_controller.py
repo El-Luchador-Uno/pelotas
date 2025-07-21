@@ -34,7 +34,8 @@ def connect_controller():
             elif event.code == X_BUTTON_CODE and event.value == 1:
                 servo_pin.control_servo(INTAKE_SERVO, 1)
             elif event.code == Y_BUTTON_CODE and event.value == 1:
-                exit(0)
+                servo_pin.control_servo(INTAKE_SERVO, 0)
+
             
             if event.code == ecodes.ABS_X:
                 x = event.value
