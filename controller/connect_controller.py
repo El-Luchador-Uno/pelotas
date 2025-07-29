@@ -1,9 +1,11 @@
 from evdev import InputDevice, ecodes, list_devices
 from constants import A_BUTTON_CODE, B_BUTTON_CODE, Y_BUTTON_CODE, X_BUTTON_CODE, Direction, INTAKE_SERVO
 from controller.handle_joystick_move import handle_move, get_degrees_of_direction
-from ball_finding.find_ball import find_ball
+from ball_finding.find_and_pickup import find_ball_and_pickup
 from ball_finding.take_picture import take_picture
 from pin_management import servo_pin
+from self_drive.callibration import get_forty_five_degree_turn_pwm
+import time
 
 def connect_controller():
     devices = [InputDevice(fn) for fn in list_devices()]
@@ -27,10 +29,13 @@ def connect_controller():
     for event in controller.read_loop():
         if event.type == ecodes.EV_KEY or event.type == ecodes.EV_ABS:
             if event.code == A_BUTTON_CODE and event.value == 1:
-                servo_pin.control_servo(INTAKE_SERVO, -1)
+                # servo_pin.control_servo(INTAKE_SERVO, -1)
+                handle_move(x=0, y=0, dir=DIRECTION.STOP)
             elif event.code == B_BUTTON_CODE and event.value == 1:
-                find_ball()
+                # find_ball_and_pickup()
                 # take_picture()
+                forty_five_degree = get_forty_five_degree_turn_pwm(pwm=0.5)
+                print(f"forty_five_degree {forty_five_degree}")
             elif event.code == X_BUTTON_CODE and event.value == 1:
                 servo_pin.control_servo(INTAKE_SERVO, 1)
             elif event.code == Y_BUTTON_CODE and event.value == 1:
@@ -59,7 +64,7 @@ def connect_controller():
             else:
                 DIRECTION = Direction.STOP
 
-            handle_move(x=x, y=y, dir=DIRECTION)
+            # handle_move(x=x, y=y, dir=DIRECTION)
 
 
         print(f"x: {x} and y: {y}, direction: {DIRECTION}")
