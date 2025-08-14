@@ -47,7 +47,6 @@ def find_ball(milliseconds_to_use: int, pwm_to_use: float, max_turns: int) -> bo
                         break
             
             if ball_found:
-                print("Ball found!")
                 break
             
             drive(dir=Direction.RIGHT, duration_in_milliseconds=milliseconds_to_use, pwm_speed=pwm_to_use)
